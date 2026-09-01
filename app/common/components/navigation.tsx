@@ -11,8 +11,24 @@ import {
 } from "./ui/navigation-menu";
 import { cn } from "~/lib/utils";
 import { Button } from "./ui/button";
-import { DropdownMenuTrigger, DropdownMenu } from "./ui/dropdown-menu";
+import {
+  DropdownMenuTrigger,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+} from "./ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
+import {
+  BarChart3Icon,
+  BellIcon,
+  LogOutIcon,
+  MessageCircleIcon,
+  SettingsIcon,
+  UserIcon,
+} from "lucide-react";
 
 const menus: {
   name: string;
@@ -129,7 +145,15 @@ const menus: {
   },
 ];
 
-export default function Navigation({ isLoggedIn }: { isLoggedIn: boolean }) {
+export default function Navigation({
+  isLoggedIn,
+  hasNotifications,
+  hasMessages,
+}: {
+  isLoggedIn: boolean;
+  hasNotifications: boolean;
+  hasMessages: boolean;
+}) {
   return (
     <nav className="flex px-20 h-16 items-center justify-between backdrop-blur fixed top-0 left-0 right-0 z-50 bg-background/50">
       <div className="flex items-center">
@@ -176,14 +200,80 @@ export default function Navigation({ isLoggedIn }: { isLoggedIn: boolean }) {
         </NavigationMenu>
       </div>
       {isLoggedIn ? (
-        <DropdownMenu>
-          <DropdownMenuTrigger>
-            <Avatar>
-              <AvatarImage src="https://github.com/josh3021.png" />
-              <AvatarFallback>SH</AvatarFallback>
-            </Avatar>
-          </DropdownMenuTrigger>
-        </DropdownMenu>
+        <div className="flex items-center gap-1">
+          <Button size="icon" variant={"ghost"} className={"relative"}>
+            <Link to="/my/notifications">
+              <BellIcon className="size-4" />
+              {hasNotifications && (
+                <span className="absolute top-0 right-0 bg-red-500 size-2 rounded-full"></span>
+              )}
+            </Link>
+          </Button>
+          <Button size="icon" variant={"ghost"} className={"relative"}>
+            <Link to="/my/messages">
+              <MessageCircleIcon className="size-4" />
+              {hasMessages && (
+                <span className="absolute top-0 right-0 bg-red-500 size-2 rounded-full"></span>
+              )}
+            </Link>
+          </Button>
+          <DropdownMenu>
+            <DropdownMenuTrigger>
+              <Avatar>
+                <AvatarImage src="https://github.com/josh3021.png" />
+                <AvatarFallback>SH</AvatarFallback>
+              </Avatar>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="w-56">
+              <DropdownMenuGroup>
+                <DropdownMenuLabel className="flex flex-col">
+                  <span className="font-medium">John Doe</span>
+                  <span className="text-xs text-muted-foreground">
+                    @johndoe
+                  </span>
+                </DropdownMenuLabel>
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem
+                  render={
+                    <Link to="/my/dashboard">
+                      <BarChart3Icon className="size-4 mr-1" /> Dashboard
+                    </Link>
+                  }
+                  className="cursor-pointer"
+                />
+                <DropdownMenuItem
+                  render={
+                    <Link to="/my/profile">
+                      <UserIcon className="size-4 mr-1" /> Profile
+                    </Link>
+                  }
+                  className="cursor-pointer"
+                />
+                <DropdownMenuItem
+                  render={
+                    <Link to="/my/settings">
+                      <SettingsIcon className="size-4 mr-1" /> Settings
+                    </Link>
+                  }
+                  className="cursor-pointer"
+                />
+              </DropdownMenuGroup>
+              <DropdownMenuSeparator />
+              <DropdownMenuGroup>
+                <DropdownMenuItem
+                  render={
+                    <Link to="/auth/logout">
+                      <LogOutIcon className="size-4 mr-1" /> Logout
+                    </Link>
+                  }
+                  className="cursor-pointer"
+                />
+              </DropdownMenuGroup>
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </div>
       ) : (
         <div className="flex items-center gap-2">
           <Button
