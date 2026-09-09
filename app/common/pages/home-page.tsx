@@ -1,10 +1,10 @@
-import { Link, type MetaFunction } from "react-router";
+import type { MetaFunction } from "react-router";
 import { PostCard } from "~/features/community/components/post-card";
 import { IdeaCard } from "~/features/ideas/components/idea-card";
 import { JobCard } from "~/features/jobs/components/job-card";
 import { ProductCard } from "~/features/products/components/product-card";
 import { TeamCard } from "~/features/teams/components/team-card";
-import { Button } from "../components/ui/button";
+import { Hero } from "../components/hero";
 import type { Route } from "./+types/home-page";
 
 export const meta: MetaFunction = () => {
@@ -20,22 +20,16 @@ export const loader = () => {
   };
 };
 
-export default function HomePage({ hello }: Route.ComponentProps) {
-  console.log(hello);
+export default function HomePage(_props: Route.ComponentProps) {
   return (
     <div className="px-20 space-y-40">
       <div className="grid grid-cols-3 gap-4">
-        <div>
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">
-            Today's Products
-          </h2>
-          <p className="text-xl font-light text-foreground">
-            The best products made by our community today.
-          </p>
-          <Button variant="link" className="text-destructive text-xl p-0">
-            <Link to="/products/leaderboards">Explore all products &rarr;</Link>
-          </Button>
-        </div>
+        <Hero
+          title="Today's Products"
+          description="The best products made by our community today."
+          linkText="Explore all products"
+          linkTo="/products/leaderboards"
+        />
         {Array.from({ length: 10 }).map((_, index) => (
           <ProductCard
             id={`productId-${index}`}
@@ -49,19 +43,12 @@ export default function HomePage({ hello }: Route.ComponentProps) {
         ))}
       </div>
       <div className="grid grid-cols-3 gap-4">
-        <div>
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">
-            Latest Discussions
-          </h2>
-          <p className="text-xl font-light text-foreground">
-            The latest discussions on our community.
-          </p>
-          <Button variant="link" className="text-destructive text-xl p-0">
-            <Link to="/products/leaderboards">
-              Explore all discussions &rarr;
-            </Link>
-          </Button>
-        </div>
+        <Hero
+          title="Latest Discussions"
+          description="The latest discussions on our community."
+          linkText="Explore all discussions"
+          linkTo="/community"
+        />
         {Array.from({ length: 10 }).map((_, index) => (
           <PostCard
             key={`postId-${index}`}
@@ -76,17 +63,12 @@ export default function HomePage({ hello }: Route.ComponentProps) {
         ))}
       </div>
       <div className="grid grid-cols-3 gap-4">
-        <div>
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">
-            IdeasGPT
-          </h2>
-          <p className="text-xl font-light text-foreground">
-            Find ideas for your next project.
-          </p>
-          <Button variant="link" className="text-destructive text-xl p-0">
-            <Link to="/ideas">Explore all discussions &rarr;</Link>
-          </Button>
-        </div>
+        <Hero
+          title="IdeasGPT"
+          description="Find ideas for your next project."
+          linkText="Explore all ideas"
+          linkTo="/ideas"
+        />
         {Array.from({ length: 5 }).map((_, index) => (
           <IdeaCard
             key={`ideaId-${index}`}
@@ -100,17 +82,12 @@ export default function HomePage({ hello }: Route.ComponentProps) {
         ))}
       </div>
       <div className="grid grid-cols-4 gap-4">
-        <div>
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">
-            Latest Jobs
-          </h2>
-          <p className="text-xl font-light text-foreground">
-            Find your next job.
-          </p>
-          <Button variant="link" className="text-destructive text-xl p-0">
-            <Link to="/ideas">Explore all jobs &rarr;</Link>
-          </Button>
-        </div>
+        <Hero
+          title="Latest Jobs"
+          description="Find your next job."
+          linkText="Explore all jobs"
+          linkTo="/jobs"
+        />
         <JobCard
           id="jobId"
           companyName="Meta"
@@ -123,17 +100,12 @@ export default function HomePage({ hello }: Route.ComponentProps) {
         />
       </div>
       <div className="grid grid-cols-4 gap-4">
-        <div>
-          <h2 className="text-5xl font-bold leading-tight tracking-tight">
-            Find a team mate
-          </h2>
-          <p className="text-xl font-light text-foreground">
-            Join a team looking for a new member.
-          </p>
-          <Button variant="link" className="text-destructive text-xl p-0">
-            <Link to="/ideas">Explore all teams &rarr;</Link>
-          </Button>
-        </div>
+        <Hero
+          title="Find a team mate"
+          description="Join a team looking for a new member."
+          linkText="Explore all teams"
+          linkTo="/teams"
+        />
         <TeamCard
           id="teamId"
           leaderUsername="nico"

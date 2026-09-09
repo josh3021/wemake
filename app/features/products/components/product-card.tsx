@@ -2,11 +2,9 @@ import { Link } from "react-router";
 import {
   Card,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "~/common/components/ui/card";
-import { Button } from "~/common/components/ui/button";
 import { ChevronUpIcon, EyeIcon, MessageCircleIcon } from "lucide-react";
 
 interface ProductCardProps {
@@ -28,9 +26,9 @@ export function ProductCard({
 }: ProductCardProps) {
   return (
     <Link to={`/products/${id}`} className="block w-full">
-      <Card className="w-full flex flex-row items-center justify-between bg-transparent hover:bg-card/50">
-        <CardHeader className="min-w-0 flex-1">
-          <CardTitle className="text-2xl font-semibold leading-none tracking-tight">
+      <Card className="flex min-h-28 w-full flex-row items-stretch justify-between bg-transparent transition-colors hover:bg-card/50">
+        <CardHeader className="min-w-0 flex-1 content-center justify-items-start text-left">
+          <CardTitle className="w-full text-left text-2xl font-semibold leading-none tracking-tight">
             {name}
           </CardTitle>
           <CardDescription className="text-sm text-muted-foreground">
@@ -47,15 +45,12 @@ export function ProductCard({
             </div>
           </div>
         </CardHeader>
-        <CardFooter className="py-0">
-          <Button
-            variant="outline"
-            className="flex flex-col items-center cursor-pointer h-14"
-          >
+        <div className="flex shrink-0 items-center justify-center px-5">
+          <div className="flex min-w-12 flex-col items-center justify-center gap-1 rounded-lg border border-border px-3 py-2 font-medium">
             <ChevronUpIcon className="size-4 shrink-0" />
             <span>{votesCount}</span>
-          </Button>
-        </CardFooter>
+          </div>
+        </div>
       </Card>
     </Link>
   );
