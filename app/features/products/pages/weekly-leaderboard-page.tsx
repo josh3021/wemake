@@ -21,6 +21,19 @@ const paramsSchema = z
     { message: "Invalid ISO week", path: ["week"] },
   );
 
+export const meta: Route.MetaFunction = ({ loaderData }) => {
+  if (!loaderData) {
+    return [{ title: "Weekly Leaderboard | wemake" }];
+  }
+
+  const urlDate = DateTime.fromMillis(loaderData.date, { zone: "Asia/Seoul" });
+  return [
+    {
+      title: `Weekly Leaderboard - ${urlDate.startOf("week").toLocaleString(DateTime.DATE_SHORT)} - ${urlDate.endOf("week").toLocaleString(DateTime.DATE_SHORT)}`,
+    },
+  ];
+};
+
 export const loader = async ({ params }: Route.LoaderArgs) => {
   const { success, data } = paramsSchema.safeParse(params);
   if (!success) {

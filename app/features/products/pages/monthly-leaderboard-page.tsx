@@ -19,6 +19,14 @@ const paramsSchema = z
     { message: "Invalid calendar month", path: ["month"] },
   );
 
+export const meta: Route.MetaFunction = ({ params }) => {
+  return [
+    {
+      title: `Monthly Leaderboard - ${params.year}.${params.month}`,
+    },
+  ];
+};
+
 export const loader = async ({ params }: Route.LoaderArgs) => {
   const { success, data } = paramsSchema.safeParse(params);
   if (!success) {

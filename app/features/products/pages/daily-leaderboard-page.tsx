@@ -18,6 +18,14 @@ const paramsSchema = z
     path: ["day"],
   });
 
+export const meta: Route.MetaFunction = ({ params }) => {
+  return [
+    {
+      title: `Daily Leaderboard - ${params.year}.${params.month}.${params.day}`,
+    },
+  ];
+};
+
 export const loader = async ({ params }: Route.LoaderArgs) => {
   const { success, data } = paramsSchema.safeParse(params);
   if (!success) {

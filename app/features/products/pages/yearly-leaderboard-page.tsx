@@ -18,6 +18,14 @@ const paramsSchema = z
     { message: "Invalid calendar year", path: ["year"] },
   );
 
+export const meta: Route.MetaFunction = ({ params }) => {
+  return [
+    {
+      title: `Yearly Leaderboard - ${params.year}`,
+    },
+  ];
+};
+
 export const loader = async ({ params }: Route.LoaderArgs) => {
   const { success, data } = paramsSchema.safeParse(params);
   if (!success) {
